@@ -10,18 +10,8 @@
 	-->
 	<div :class="overlay_classes" v-show="is_open" v-on:click="_onOverlayClick">
 		<div :class="modal_classes" :style="modal_style">
-			<div class="sweet-box-actions">
-				<!-- Custom Actions -->
-				<slot name="box-action"></slot>
-
-				<!-- Close Button -->
-				<div class="sweet-action-close" v-on:click="close" v-if="!hideCloseButton">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="#292c34" /></svg>
-				</div>
-			</div>
-
 			<!-- Title: Housing the title and tabs, if no title is present -->
-			<div class="sweet-title" v-if="has_title || has_tabs">
+			<div class="modal-header" v-if="has_title || has_tabs">
 				<!-- Tabs but no title -->
 				<template v-if="has_tabs && !has_title">
 					<ul class="sweet-modal-tabs">
@@ -35,10 +25,18 @@
 						</li>
 					</ul>
 				</template>
+					<!-- Custom Actions -->
+				<slot name="box-action"></slot>
+
+				<!-- Close Button -->
+				<button type="button"
+						class="close"
+						v-on:click="close" v-if="!hideCloseButton"
+						aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
 				<!-- Title -->
 				<template v-if="has_title">
-					<h2 v-if="title" v-html="title"></h2>
+					<h4 class="modal-title" v-if="title" v-html="title"></h4>
 					<slot name="title"></slot>
 				</template>
 			</div>
@@ -852,7 +850,7 @@
 		}
 
 		&.is-mobile-fullscreen {
-			
+
 			@include media(mobile) {
 
 				& {
